@@ -8,6 +8,7 @@ import {useEffect, useRef, useState} from 'react'
 
 import { useRouter } from 'next/router'
 import Navbar from 'src/components/navbar'
+import dynamic from 'next/dynamic'
 
 const Container = styled.div`
   width:100vw;
@@ -24,6 +25,7 @@ export default function MyApp({
   const theme = useRef(light);
   
   const [isAuthed, setIsAuthed] = useState(true);
+
 
   return (
 
