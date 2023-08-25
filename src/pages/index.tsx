@@ -1,7 +1,10 @@
-import ChatSlider from "src/components/main/ChatSlider"
-import Feature from "src/components/main/Feature"
-import Hello from "src/components/main/Hello"
-import Quote from "src/components/main/Quote"
+import { useEffect, useRef, useState } from "react";
+import Calendar from "src/components/Calendar";
+import Home from "src/components/Home";
+import Mento from "src/components/Mento";
+import MyPage from "src/components/MyPage";
+import Planner from "src/components/Planner";
+import useStore from "src/store"
 import styled from "styled-components"
 
 const Container = styled.div`
@@ -14,39 +17,15 @@ const Container = styled.div`
   background-color: #ECECF2;
 `
 
-const Section1 = styled.div`
-  width:100%;
-  display:flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`
-const Section2 = styled.div`
-  width:100%;
-  margin-top:2.2em;
-  border-top-right-radius: 24px;
-  border-top-left-radius: 24px;
-  padding:2em;
-  flex:1;
+export default function Index() {
 
-  background-color: ${p=>p.theme.colors.gray1};
+  
+  const {tab} = useStore();
 
-`
-
-
-
-export default function Home() {
   return (
     <>
       <Container>
-        <Section1>
-          <Hello/>
-          <Quote/>
-        </Section1>
-        <Section2>
-          <Feature/>
-          <ChatSlider/>
-        </Section2>
+        {tab}
       </Container>
     </>
   )
