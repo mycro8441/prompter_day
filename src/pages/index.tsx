@@ -1,9 +1,3 @@
-import { useEffect, useRef, useState } from "react";
-import Calendar from "src/components/Calendar";
-import Home from "src/components/Home";
-import Mento from "src/components/Mento";
-import MyPage from "src/components/MyPage";
-import Planner from "src/components/Planner";
 import useStore from "src/store"
 import styled from "styled-components"
 

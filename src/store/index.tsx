@@ -1,5 +1,4 @@
-import Calendar from 'src/components/Calendar';
-import Home from 'src/components/Home';
+import Mento from 'src/components/Mento';
 import {create} from 'zustand'
 
 interface serviceI {
@@ -11,7 +10,7 @@ interface serviceI {
 
 const useStore = create<serviceI>(set=>({
     themeMode:true,
-    tab:<Calendar/>,
+    tab:<Mento/>,
     changeTab:(page:JSX.Element)=>set(()=>({tab:page})),
 }))
 
