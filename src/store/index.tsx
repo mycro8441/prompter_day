@@ -1,4 +1,4 @@
-import Mento from 'src/components/Mento';
+import Home from 'src/components/Home';
 import {create} from 'zustand'
 
 interface serviceI {
@@ -10,7 +10,7 @@ interface serviceI {
 
 const useStore = create<serviceI>(set=>({
     themeMode:true,
-    tab:<Mento/>,
+    tab:<Home/>,
     changeTab:(page:JSX.Element)=>set(()=>({tab:page})),
 }))
 
