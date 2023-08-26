@@ -99,6 +99,7 @@ const CalendarBackground = styled.div`
     background-origin: border-box;
     background-clip: content-box, border-box;
     border:solid 2px transparent;
+    padding-bottom:1em;
     border-bottom-left-radius: 1em;
     border-bottom-right-radius: 1em;
 `
