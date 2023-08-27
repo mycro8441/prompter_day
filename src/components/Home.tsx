@@ -8,6 +8,7 @@ const Section1 = styled.div`
   display:flex;
   flex-direction: column;
   align-items: center;
+  padding-top:5em;
   justify-content: center;
 `
 const Section2 = styled.div`
