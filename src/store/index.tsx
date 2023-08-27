@@ -1,4 +1,4 @@
-import Home from 'src/components/Home';
+import Planner from 'src/components/Planner';
 import {create} from 'zustand'
 
 interface serviceI {
@@ -10,7 +10,7 @@ interface serviceI {
 
 const useStore = create<serviceI>(set=>({
     themeMode:true,
-    tab:<Home/>,
+    tab:<Planner/>,
     changeTab:(page:JSX.Element)=>set(()=>({tab:page})),
 }))
 

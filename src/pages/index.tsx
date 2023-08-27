@@ -3,12 +3,11 @@ import styled from "styled-components"
 
 const Container = styled.div`
   width:100vw;
-  height:100vh;
+  height:100%;
   display:flex;
   flex-direction: column;
   align-items: center;
-  padding-top:5em;
-  background-color: #ECECF2;
+  background-color: #F8F8FD;
 `
 
 export default function Index() {

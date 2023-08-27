@@ -7,7 +7,7 @@ const Container = styled.div`
     width:100%;
     height:100%;
     overflow-y:auto;
-    padding:2em;
+    padding:0 2em;
     padding-top:0;
 `
 const Title = styled.div`

@@ -5,6 +5,7 @@ const TimeLineContainer = styled.div`
     position:relative;
     margin-top:10px;
     padding-top:1em;
+    margin-bottom:4em;
     margin-left:16px;
     &:before {
     content: '';

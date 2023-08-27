@@ -15,8 +15,11 @@ const Container = styled.div`
   height:100vh;
   display:flex;
   flex-direction: column;
-`
 
+`
+const Adjuster = styled.div`
+  flex:1;
+`
 export default function MyApp({
   Component,
   pageProps: { session, ...pageProps }
@@ -38,7 +41,9 @@ export default function MyApp({
               <meta name="keywords" content="travel, planner"/>
             </Head>
             <Container>
-              <Component {...pageProps} />
+              <Adjuster>
+                <Component {...pageProps} />
+              </Adjuster>
               <Navbar/>
             </Container>
       </ThemeProvider>
