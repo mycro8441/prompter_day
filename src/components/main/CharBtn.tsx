@@ -1,6 +1,7 @@
 import { memo } from "react";
 import styled from "styled-components";
 import Image from "next/image";
+import useStore from "src/store";
 
 const BtnContainer = styled.div`
   width:100%;
@@ -84,10 +85,10 @@ const CharacterInfoContainer = styled.div`
 `
 
 
-const CharBtn = ({color1, color2, imagesrc, alt, title, subtitle, setChatInfo}) => {
+const CharBtn = ({color1, color2, imagesrc, alt, title, subtitle}) => {
 
 
-
+    const {setChatInfo} = useStore()
     return <BtnContainer onClick={()=>setChatInfo({
       on:true,
       info:{

@@ -74,9 +74,9 @@ const BlurCircle2 = styled.div`
 `
 
 const PlusBtn = styled.div`
-    position:absolute;
+    position:fixed;
     z-index:1;
-    bottom:2em;
+    bottom:6em;
     left:50%;
     transform:translateX(-50%);
     width:60px;
