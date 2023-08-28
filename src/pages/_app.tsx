@@ -19,6 +19,7 @@ const Container = styled.div`
 `
 const Adjuster = styled.div`
   flex:1;
+  padding-bottom:3.6em;
 `
 export default function MyApp({
   Component,
