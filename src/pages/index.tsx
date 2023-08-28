@@ -18,7 +18,7 @@ export default function Index() {
   return (
     <>
       <Container>
-        {tab}
+        {tab.component}
       </Container>
     </>
   )

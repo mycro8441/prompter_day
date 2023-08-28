@@ -1,17 +1,21 @@
 import Planner from 'src/components/Planner';
 import {create} from 'zustand'
 
+type Tab = {
+    component:JSX.Element;
+    name:string;
+}
 interface serviceI {
     themeMode:boolean;
-    tab:JSX.Element;
-    changeTab:(page:JSX.Element)=>void;
+    tab:Tab;
+    changeTab:(page:JSX.Element, name:string)=>void;
 }
 
 
 const useStore = create<serviceI>(set=>({
     themeMode:true,
-    tab:<Planner/>,
-    changeTab:(page:JSX.Element)=>set(()=>({tab:page})),
+    tab:{component:<Planner/>, name:"Planner"},
+    changeTab:(page:JSX.Element, name:string)=>set(()=>({tab:{component:page, name:name}})),
 }))
 
 export default useStore;

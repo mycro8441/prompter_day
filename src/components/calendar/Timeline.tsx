@@ -5,7 +5,6 @@ const TimeLineContainer = styled.div`
     position:relative;
     margin-top:10px;
     padding-top:1em;
-    margin-bottom:4em;
     margin-left:16px;
     &:before {
     content: '';
@@ -26,15 +25,17 @@ const Block = styled.div`
     max-width: 400px;
 
     p {
-        margin:0;
-        color:${p=>p.theme.colors.gray4};
-        font-size:${p=>p.theme.fontSizes.smallText};
+        margin:0 !important;
+        color:${p=>p.theme.colors.gray4} !important;
+        font-size:${p=>p.theme.fontSizes.smallText} !important;
+        font-weight:${p=>p.theme.fontWeight.smallText} !important;
+
     }
 `
 const Title = styled.div`
     color: #202126;
     position: relative;
-    font-size:${p=>p.theme.fontSizes.smallTitle};
+    font-size:${p=>p.theme.fontSizes.smallTitle} !important;
     &::before {
         content: "";
         position: absolute;
