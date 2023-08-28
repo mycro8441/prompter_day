@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import CharBtn from "../main/CharBtn";
-import characterOneImage from "../images/main/character1.png";
-import characterTwoImage from "../images/main/character2.png";
-import characterThreeImage from "../images/main/character3.png";
+import characterOneImage from "../../images/main/character1.png";
+import characterTwoImage from "../../images/main/character2.png";
+import characterThreeImage from "../../images/main/character3.png";
 
 
 const Title = styled.div`
