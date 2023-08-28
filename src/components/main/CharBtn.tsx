@@ -84,11 +84,17 @@ const CharacterInfoContainer = styled.div`
 `
 
 
-const CharBtn = ({color1, color2, imagesrc, alt, title, subtitle}) => {
+const CharBtn = ({color1, color2, imagesrc, alt, title, subtitle, setChatInfo}) => {
 
 
 
-    return <BtnContainer>
+    return <BtnContainer onClick={()=>setChatInfo({
+      on:true,
+      info:{
+          id:alt,
+          name:title
+      }
+    })}>
     <Blur color={color1+"09"}/>
     <Btn>
         <Adjuster>

@@ -37,7 +37,7 @@ const PlusBtn = styled.div`
     }
 `
 
-const Main = () => {
+const Main = ({setChatInfo}) => {
 
 
 
@@ -72,6 +72,7 @@ const Main = () => {
         alt="요리사 캐릭터"
         title="요요"
         subtitle="안녕! 나는 ai 요리사 멘토 요요야. 궁금한 게 있다면 언제든지 물어봐!"
+        setChatInfo={setChatInfo}
         />
         <CharBtn 
         color1="#FA9600" 
@@ -81,6 +82,7 @@ const Main = () => {
         title="사사"
         subtitle="안녕하세요. 저는 ai 의사 멘토, 사사예요!
         무엇이 궁금하신가요?"
+        setChatInfo={setChatInfo}
         />
         <CharBtn 
         color1="#FF6C6C"
@@ -90,6 +92,7 @@ const Main = () => {
         title="소소"
         subtitle="안녕하세요, ai 소방관 멘토입니다!
         질문이 있다면 언제든 해주세요!"
+        setChatInfo={setChatInfo}
         />             
     </>
      
