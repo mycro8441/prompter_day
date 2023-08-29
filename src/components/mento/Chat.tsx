@@ -51,6 +51,10 @@ const ChatInput = styled.form`
         justify-content: center;
         align-items: center;
     }
+    button {
+        border:none;
+        background:none;
+    }
 `
 
 const MessageContainer = styled.div<{me:boolean}>`
@@ -128,7 +132,7 @@ const Input = ({data, setData}) => {
     }
     return <ChatInput onSubmit={onSubmit}>
         <input placeholder="멘토에게 질문해보세요!" value={input} onChange={e=>setInput(e.target.value)}/>
-        <div>
+        <button type="submit">
             <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
             <mask id="path-1-inside-1_241_865" fill="white">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M5.91463 12.2002C4.56766 7.98576 8.96059 4.2295 12.9189 6.21105L25.5719 12.5453C29.2567 14.3899 29.2527 19.6467 25.5651 21.4857L12.9188 27.7925C8.95836 29.7676 4.57168 26.0067 5.92301 21.7947L7.23406 17.7083H12.0415C12.4327 17.7083 12.7499 17.3912 12.7499 17C12.7499 16.6088 12.4327 16.2917 12.0415 16.2917H7.22231L5.91463 12.2002Z"/>
@@ -144,7 +148,7 @@ const Input = ({data, setData}) => {
             </defs>
             </svg>
 
-        </div>
+        </button>
     </ChatInput>
 }
 
