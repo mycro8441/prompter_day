@@ -8,6 +8,7 @@ const Container = styled.div`
     height:100%;
     overflow-y:auto;
     padding:4em 2em;
+    position:relative;
 `
 const Title = styled.div`
   text-align:left;

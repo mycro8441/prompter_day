@@ -9,6 +9,7 @@ import {useEffect, useRef, useState} from 'react'
 import { useRouter } from 'next/router'
 import Navbar from 'src/components/navbar'
 import dynamic from 'next/dynamic'
+import useStore from 'src/store'
 
 const Container = styled.div`
   width:100vw;
@@ -17,9 +18,9 @@ const Container = styled.div`
   flex-direction: column;
 
 `
-const Adjuster = styled.div`
+const Adjuster = styled.div<{visible:boolean}>`
   flex:1;
-  padding-bottom:3.6em;
+  padding-bottom:${p=>p.visible && "3.6em"};
 `
 export default function MyApp({
   Component,
@@ -30,7 +31,7 @@ export default function MyApp({
   
   const [isAuthed, setIsAuthed] = useState(true);
 
-
+  const {tab} = useStore()
   return (
 
       <ThemeProvider theme={theme.current}>
@@ -42,10 +43,10 @@ export default function MyApp({
               <meta name="keywords" content="travel, planner"/>
             </Head>
             <Container>
-              <Adjuster>
+              <Adjuster visible={tab.name === "Home" || tab.name ==="Mento" || tab.name==="Planner" || tab.name==="Calendar" || tab.name === "MyPage"}>
                 <Component {...pageProps} />
               </Adjuster>
-              <Navbar/>
+              {(tab.name === "Home" || tab.name ==="Mento" || tab.name==="Planner" || tab.name==="Calendar" || tab.name === "MyPage") && <Navbar/>}
             </Container>
       </ThemeProvider>
 

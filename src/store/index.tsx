@@ -1,4 +1,6 @@
+import Home from 'src/components/Home';
 import Mento from 'src/components/Mento';
+import Quiz from 'src/components/main/Quiz';
 import {create} from 'zustand'
 
 type Tab = {
@@ -23,13 +25,13 @@ interface serviceI {
 
 const useStore = create<serviceI>(set=>({
     themeMode:true,
-    tab:{component:<Mento/>, name:"Planner"},
+    tab:{component:<Home/>, name:"Home"},
     changeTab:(page:JSX.Element, name:string)=>set(()=>({tab:{component:page, name:name}})),
     chatInfo:{
-        on:true,
+        on:false,
         info:{
-            id:0,
-            name:'요요',
+            id:null,
+            name:'',
         }
     },
     setChatInfo:(info:Chat)=>set(()=>({chatInfo:info})),
