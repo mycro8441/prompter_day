@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 import Navbar from 'src/components/navbar'
 import dynamic from 'next/dynamic'
 import useStore from 'src/store'
+import Login from 'src/components/auth/Login'
 
 const Container = styled.div`
   width:100vw;
@@ -29,9 +30,7 @@ export default function MyApp({
 
   const theme = useRef(light);
   
-  const [isAuthed, setIsAuthed] = useState(true);
-
-  const {tab} = useStore()
+  const {tab, isLoggedIn} = useStore()
   return (
 
       <ThemeProvider theme={theme.current}>
@@ -42,12 +41,17 @@ export default function MyApp({
               <meta name="description" content="여행, 똑똑하게 해보세요"/>
               <meta name="keywords" content="travel, planner"/>
             </Head>
-            <Container>
-              <Adjuster visible={tab.name === "Home" || tab.name ==="Mento" || tab.name==="Planner" || tab.name==="Calendar" || tab.name === "MyPage"}>
-                <Component {...pageProps} />
-              </Adjuster>
-              {(tab.name === "Home" || tab.name ==="Mento" || tab.name==="Planner" || tab.name==="Calendar" || tab.name === "MyPage") && <Navbar/>}
-            </Container>
+            {isLoggedIn ? <>
+              <Container>
+                <Adjuster visible={tab.name === "Home" || tab.name ==="Mento" || tab.name==="Planner" || tab.name==="Calendar" || tab.name === "MyPage"}>
+                  <Component {...pageProps} />
+                </Adjuster>
+                {(tab.name === "Home" || tab.name ==="Mento" || tab.name==="Planner" || tab.name==="Calendar" || tab.name === "MyPage") && <Navbar/>}
+              </Container>            
+            </>:<>
+              <Login/>
+            </>}
+
       </ThemeProvider>
 
   )

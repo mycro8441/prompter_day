@@ -2,6 +2,7 @@ import { memo } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import useStore from "src/store";
+import Mento from "../Mento";
 
 const BtnContainer = styled.div`
   width:100%;
@@ -88,14 +89,16 @@ const CharacterInfoContainer = styled.div`
 const CharBtn = ({color1, color2, imagesrc, alt, title, subtitle}) => {
 
 
-    const {setChatInfo} = useStore()
-    return <BtnContainer onClick={()=>setChatInfo({
+    const {setChatInfo, changeTab} = useStore()
+    return <BtnContainer onClick={()=>{
+      changeTab(<Mento/>, "Mento");
+      setChatInfo({
       on:true,
       info:{
           id:alt,
           name:title
       }
-    })}>
+    })}}>
     <Blur color={color1+"09"}/>
     <Btn>
         <Adjuster>

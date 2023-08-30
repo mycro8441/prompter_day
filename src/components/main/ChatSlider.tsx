@@ -15,7 +15,7 @@ const ChatContainer = styled.div`
 `
 const ChatSlider = () => {
 
-
+  
     return <>
         <ChatContainer>
             <p>최근 나눈 대화</p>

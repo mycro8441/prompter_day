@@ -1,5 +1,7 @@
 import { useState } from "react";
+import useStore from "src/store";
 import styled from "styled-components";
+import MyPage from "../MyPage";
 
 const Container = styled.div`
     width:100%;
@@ -58,6 +60,7 @@ const PrettySetting = styled.div`
     width:100%;
     height:4em;
     border-radius:12px;
+    margin-top:6px;
     color:${p=>p.theme.colors.gray4};
     background-color: white;
     border: 2px solid #EEEEF6;
@@ -100,15 +103,24 @@ const LongCircle = styled.div<{on:boolean}>`
         transition: 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
 `
+const Margin = styled.div`
+    width:100%;
+    height:2em;
+`
 const Settings = () => {
 
-    const [toggle, setToggle] = useState(false);
+    const [toggle, setToggle] = useState({
+        notice:false,
+        dark:false,
+    });
     const [inputs, setInputs] = useState({
         id:'',
         pw:'',
     })
+    const {changeTab} = useStore();
+
     return <Container>
-        <Header>
+        <Header onClick={()=>changeTab(<MyPage/>, "MyPage")}>
             <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M7 13L1 7L7 1" stroke="#202126" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -132,7 +144,7 @@ const Settings = () => {
                 <p>비밀번호</p>
             </Title>
             <PrettyInput value={inputs.pw} onChange={e=>setInputs({...inputs, pw:e.target.value})}/>
-            <br/>
+            <Margin/>
             <PrettySetting>
                 <div>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -140,11 +152,38 @@ const Settings = () => {
                     </svg>
                     알림
                 </div>
-                <LongCircle on={toggle} onClick={()=>setToggle(prev=>!prev)}>
+                <LongCircle on={toggle.notice} onClick={()=>setToggle({...toggle, notice:!toggle.notice})}>
                     <div/>
                 </LongCircle>
 
             </PrettySetting>
+            <PrettySetting>
+                <div>
+                    <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8.26477 0.389341C8.42202 0.664486 8.39532 1.00775 8.19743 1.25527C7.36706 2.29393 6.87543 3.59416 6.87543 5.00563C6.87543 8.37199 9.69018 11.1385 13.2094 11.1385C14.176 11.1385 15.0895 10.9294 15.9064 10.5565C16.1935 10.4255 16.5314 10.4822 16.76 10.6997C16.9886 10.9173 17.0619 11.252 16.9452 11.5452C15.6716 14.7457 12.4833 17 8.7677 17C3.94648 17 0 13.1966 0 8.45844C0 4.14877 3.26708 0.610774 7.48451 0.00780575C7.79823 -0.0370466 8.10753 0.114196 8.26477 0.389341Z" fill="#CACAD0"/>
+                    </svg>
+
+                    다크모드
+                </div>
+                <LongCircle on={toggle.dark} onClick={()=>setToggle({...toggle, dark:!toggle.dark})}>
+                    <div/>
+                </LongCircle>
+
+            </PrettySetting>
+            <Margin/>
+            <PrettySetting>
+                <div>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M15.5308 3.3303C13.5345 2.8899 11.4655 2.8899 9.46917 3.3303L9.05155 3.42243C6.7436 3.93157 4.83995 5.48141 3.86227 7.56555C3.71538 7.87867 3.95577 8.22161 4.30164 8.22161H20.6984C21.0442 8.22161 21.2846 7.87867 21.1377 7.56555C20.16 5.48141 18.2564 3.93157 15.9484 3.42243L15.5308 3.3303ZM3.37698 15.0688C2.97444 13.4549 2.89428 11.7821 3.13648 10.1447C3.17184 9.90567 3.37999 9.73296 3.62165 9.73296H21.3783C21.62 9.73296 21.8282 9.90567 21.8635 10.1447C22.1057 11.7821 22.0256 13.4549 21.623 15.0688C20.9347 17.8286 18.7366 19.9625 15.9484 20.5776L15.5308 20.6697C13.5345 21.1101 11.4655 21.1101 9.46917 20.6697L9.05155 20.5776C6.26343 19.9625 4.06534 17.8286 3.37698 15.0688ZM7.44085 11.2443C7.02174 11.2443 6.68198 11.5826 6.68198 12C6.68198 12.4173 7.02174 12.7557 7.44085 12.7557H11.4882C11.9073 12.7557 12.2471 12.4173 12.2471 12C12.2471 11.5826 11.9073 11.2443 11.4882 11.2443H7.44085Z" fill="#CACAD0"/>
+                    </svg>
+                    결제수단 관리
+                </div>
+                <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 1L7 7L1 13" stroke="#CACAD0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+
+            </PrettySetting>
+
         </Infos>
     </Container>
 }

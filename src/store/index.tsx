@@ -20,12 +20,16 @@ interface serviceI {
     changeTab:(page:JSX.Element, name:string)=>void;
     chatInfo:Chat;
     setChatInfo:(info:Chat)=>void;
+    isLoggedIn:boolean;
+    setIsLoggedIn:(value:boolean)=>void;
 }
 
 
 const useStore = create<serviceI>(set=>({
     themeMode:true,
     tab:{component:<Home/>, name:"Home"},
+    isLoggedIn:false,
+    setIsLoggedIn:(value:boolean)=>set(()=>({isLoggedIn:value})),
     changeTab:(page:JSX.Element, name:string)=>set(()=>({tab:{component:page, name:name}})),
     chatInfo:{
         on:false,
