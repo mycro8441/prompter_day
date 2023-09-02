@@ -3,6 +3,8 @@ import styled from "styled-components";
 import Home from "../Home";
 import CookImage from "../../images/news/cooking.png";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { getNews } from "src/lib/routes";
 const Container = styled.div`
     width:100%;
     height:100%;
@@ -82,6 +84,12 @@ const News = () => {
 
 
     const {changeTab} = useStore();
+    const [data, setData] = useState([])
+    useEffect(()=>{
+        getNews("").then(res=>{
+            console.log(res)
+        })
+    }, [])
     return <Container>
         <Header onClick={()=>changeTab(<Home/>, "Home")}>
                 <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">

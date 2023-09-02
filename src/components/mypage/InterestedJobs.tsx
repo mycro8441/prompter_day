@@ -74,13 +74,18 @@ const CharacterSlider = styled.div`
     gap:24px;
     overflow-x:scroll;
     white-space: nowrap;
+    ::-webkit-scrollbar {
+        display:none;
+    }
 `
-const CharacterContainer = styled.div`
+const CharacterContainer = styled.div<{activated:boolean}>`
     width:72px ;
     height:72px;
     display:flex;
     justify-content: center;
     align-items: center;
+    opacity: ${p=>p.activated ? "1" : "0.5"};
+    cursor:pointer;
 `
 const Circle = styled.div<{color1:string, color2:string}>`
   width:72px;
@@ -261,6 +266,13 @@ const PrettyInput = () => {
 const InterestedJobs = () => {
     const {changeTab} = useStore();
     const [addMode, setAddMode] = useState(false);
+    const [curJob, setCurJob] = useState("");
+
+    const selectJob = (name:string) => {
+        setAddMode(false)
+        if(name===curJob) setCurJob("");
+        else setCurJob(name);
+    }
     return <Container>
         <Header onClick={()=>changeTab(<MyPage/>, "MyPage")}>
         <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -306,35 +318,28 @@ const InterestedJobs = () => {
             프리미엄에 가입하고 관심 직종을 추가해보세요!
         </SmallTitle>
         <CharacterSlider>
-            <div>
-                <CharacterContainer>
+                <div>
+                <CharacterContainer activated={"소방관" === curJob} onClick={()=>selectJob("소방관")}>
                     <Circle color1="#FF6C6C" color2="#BB0000">
                         <Image src={characterThreeImage} alt="" width={56}/>
                     </Circle>
                     </CharacterContainer>
                 </div>
                 <div>
-                <CharacterContainer>
+                <CharacterContainer activated={"프론트엔드 개발자" === curJob} onClick={()=>selectJob("프론트엔드 개발자")}>
                     <Circle color1="#0019FA" color2="#001881">
                         <Image src={characterOneImage} alt="" width={56}/>
                     </Circle>
                     </CharacterContainer>
                 </div>
                 <div>
-                <CharacterContainer>
+                <CharacterContainer activated={"의사" === curJob} onClick={()=>selectJob("의사")}>
                     <Circle color1="#FA9600" color2="#F27400">
                         <Image src={characterTwoImage} alt="" width={56}/>
                     </Circle>
                     </CharacterContainer>
                 </div>
-                <div>
-                <CharacterContainer>
-                    <Circle color1="#FA9600" color2="#F27400">
-                        <Image src={characterTwoImage} alt="" width={56}/>
-                    </Circle>
-                    </CharacterContainer>
-                </div>
-                <PlusBtn onClick={()=>setAddMode(prev=>!prev)}>
+                <PlusBtn onClick={()=>{setAddMode(prev=>!prev);setCurJob("")}}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M12 0C13.0464 0 13.8947 0.848303 13.8947 1.89474V10.1053H22.1053C23.1517 10.1053 24 10.9536 24 12C24 13.0464 23.1517 13.8947 22.1053 13.8947H13.8947V22.1053C13.8947 23.1517 13.0464 24 12 24C10.9536 24 10.1053 23.1517 10.1053 22.1053V13.8947H1.89474C0.848303 13.8947 0 13.0464 0 12C0 10.9536 0.848303 10.1053 1.89474 10.1053H10.1053V1.89474C10.1053 0.848302 10.9536 0 12 0Z" fill="#0019FA"/>
                     </svg>
@@ -349,22 +354,60 @@ const InterestedJobs = () => {
                 <PrettyInput/>
                 <SubmitBtn>추가하기</SubmitBtn>
             </>:<>
-                <Card>
-                    <p>소방관</p>
-                    <MoneyContainer>
-                        <div>
-                            <Btn><p>평균연봉</p></Btn>
-                            <p>4,000만원</p>
-                        </div>
-                        <div>
-                            <Btn2><p>직업 만족도</p></Btn2>
-                            <p>66.5%</p>
-                        </div>
-                    </MoneyContainer>
-                    <h1>
-                        화재를 예방·경계하거나 진압하고 화재, 재난·재해 그 밖의 위급한 상황에서의 구조·구급활동 등을 통하여 국민의 생명·신체 및 재산을 보호함으로써 공공의 안녕질서 유지와 복리증진에 이바지함을 목적으로 하는 공무원
-                    </h1>
-                </Card>            
+                {curJob && <>
+                    <Card>
+                        
+                        {curJob === "소방관" ? <>
+                            <p>소방관</p>
+                            <MoneyContainer>
+                                <div>
+                                    <Btn><p>평균연봉</p></Btn>
+                                    <p>4,000만원</p>
+                                </div>
+                                <div>
+                                    <Btn2><p>직업 만족도</p></Btn2>
+                                    <p>66.5%</p>
+                                </div>
+                            </MoneyContainer>
+                            <h1>
+                                화재를 예방·경계하거나 진압하고 화재, 재난·재해 그 밖의 위급한 상황에서의 구조·구급활동 등을 통하여 국민의 생명·신체 및 재산을 보호함으로써 공공의 안녕질서 유지와 복리증진에 이바지함을 목적으로 하는 공무원
+                            </h1>                    
+                        </> : curJob === "프론트엔드 개발자" ? <>
+                            <p>프론트엔드 개발자</p>
+                            <MoneyContainer>
+                                <div>
+                                    <Btn><p>평균연봉</p></Btn>
+                                    <p>4,000만원</p>
+                                </div>
+                                <div>
+                                    <Btn2><p>직업 만족도</p></Btn2>
+                                    <p>70.8%</p>
+                                </div>
+                            </MoneyContainer>
+                            <h1>
+                                프론트엔드 개발자는 웹 및 앱 사용자 인터페이스(UI)를 디자인하고 개발하는 역할을 맡으며, 사용자 경험을 개선하고 웹 페이지 또는 애플리케이션의 시각적 요소를 관리합니다. HTML, CSS, JavaScript 등의 기술을 사용하여 웹 페이지를 만들고, 디자인과 사용자 인터랙션을 최적화하는 역할을 수행합니다.
+                            </h1>
+                        </>:<>
+                            <p>의사</p>
+                            <MoneyContainer>
+                                <div>
+                                    <Btn><p>평균연봉</p></Btn>
+                                    <p>4,000만원</p>
+                                </div>
+                                <div>
+                                    <Btn2><p>직업 만족도</p></Btn2>
+                                    <p>66.5%</p>
+                                </div>
+                            </MoneyContainer>
+                            <h1>
+                                ㅁㅁ
+                            </h1>
+                        </>}
+
+                    </Card>                    
+                
+                </>}
+        
             </>}
 
         </Infos>

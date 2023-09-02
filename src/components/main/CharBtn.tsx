@@ -104,7 +104,7 @@ const CharBtn = ({color1, color2, imagesrc, alt, title, subtitle}) => {
         <Adjuster>
             <CharacterContainer>
               <Circle color1={color1} color2={color2}>
-                <Image src={imagesrc} alt={alt} width={32}/>
+                <Image src={imagesrc} alt={alt} height={64}/>
               </Circle>
             </CharacterContainer>
             <CharacterInfoContainer>

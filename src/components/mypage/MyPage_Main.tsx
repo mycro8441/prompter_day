@@ -399,10 +399,10 @@ const MyPage_Main = () => {
           <div>
             <CharacterContainer>
               <Circle color1="#0019FA" color2="#001881">
-                <Image src={characterOneImage} alt="" width={47} />
+                <Image src={characterOneImage} alt="" width={80} />
               </Circle>
             </CharacterContainer>
-            <p>요리사</p>
+            <p>프론트엔드 개발자</p>
           </div>
           <div>
             <CharacterContainer>

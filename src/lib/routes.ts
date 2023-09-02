@@ -1,7 +1,7 @@
 import { client } from "./client";
 
-export const getNews = async () => {
-    const {data} = await client.get("/news");
+export const getNews = async (job:string) => {
+    const {data} = await client.get("/news/"+job);
     return data;
 }
 export const getQuiz = async () => {
