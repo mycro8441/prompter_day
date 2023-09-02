@@ -181,7 +181,7 @@ const Quiz = () => {
             <QuizContainer>
                 <QuizTitle>
                     <p>Q1</p>
-                    <div>JavaScript에서 "Hoisting"이란 무엇인가요?
+                    <div>{'JavaScript에서 "Hoisting"이란 무엇인가요?'}
                     </div>
                 </QuizTitle>
                 <AnsButtonContainer>
