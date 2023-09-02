@@ -23,9 +23,9 @@ const ChatSlider = () => {
               color1="#0019FA" 
               color2="#001881" 
               imagesrc={characterOneImage} 
-              alt="요리사 캐릭터"
-              title="요요"
-              subtitle="안녕! 나는 ai 요리사 멘토 요요야. 궁금한 게 있다면 언제든지 물어봐!"
+              alt="개발자 캐릭터"
+              title="프론트엔드 개발자"
+              subtitle="안녕! 나는 ai 프론트엔드 개발자 멘토 디디야. 궁금한 게 있다면 언제든지 물어봐!"
             />
             <CharBtn 
               color1="#FA9600" 

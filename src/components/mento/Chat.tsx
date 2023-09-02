@@ -200,14 +200,14 @@ const Chat = () => {
 
                         <CharacterContainer>
                             <Circle color1="#0019FA" color2="#001881">
-                                <Image src={characterOneImage} alt="요리사 이미지" width={64}/>
+                                <Image src={characterOneImage} alt="개발자 이미지" width={64}/>
                             </Circle>
                         </CharacterContainer>
                         <div>
                             <p>프론트엔드 개발자</p>
                             <MessageBalloon me={false}>
                                 <div>
-                                    안녕하세요! 무엇을 도와드릴까요?
+                                    안녕! 나는 프론트엔드 개발자 멘토야.
                                 </div>
                                 <p>{format(new Date(), "aa hh:mm", {locale:ko})}</p>
                             </MessageBalloon>
