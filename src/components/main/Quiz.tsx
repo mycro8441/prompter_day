@@ -134,11 +134,12 @@ const BlurCircle2 = styled.div`
 const LightCircle = styled.div<{current:boolean}>`
     width:10px;
     height:10px;
-        border:solid 3px transparent;
+        border:solid 1px transparent;
     border-radius: 1em;
-    background-image: ${p=>`linear-gradient(#3B4EFA, #3B4EFA), linear-gradient(to bottom, #969AF3 0%, #3B4EFA 100%)`};
+    background-image: ${p=>`linear-gradient(${p.current ? "#3B4EFA, #3B4EFA" : "#CFD0E1, #CFD0E1"}), linear-gradient(to bottom, ${p.current ? "#969AF3 0%, #3B4EFA 100%":"#EFF0FB, #CFD0E1"})`};
     background-origin: border-box;
     background-clip: content-box, border-box;
+    box-shadow:${p=>p.current && "0px 3px 10px 1px #3B4EFA"};
 `
 
 const Quiz = () => {
@@ -172,15 +173,7 @@ const Quiz = () => {
                 <div>
                     {[...Array(5)].map((v, i)=>(
                         <>
-                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="5" cy="5" r="4.5" fill="#CACAD0" fill-opacity="0.6" stroke="url(#paint0_linear_241_669)"/>
-                            <defs>
-                            <linearGradient id="paint0_linear_241_669" x1="5" y1="0" x2="5" y2="10" gradientUnits="userSpaceOnUse">
-                            <stop stop-color="#EBEDFF"/>
-                            <stop offset="1" stop-color="#F8F8FF" stop-opacity="0"/>
-                            </linearGradient>
-                            </defs>
-                            </svg>                        
+                            <LightCircle current={i===0}/>                     
                         </>
                     ))}
                 </div>
