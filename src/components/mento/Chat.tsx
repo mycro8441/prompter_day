@@ -207,7 +207,7 @@ const Chat = () => {
                             <p>프론트엔드 개발자</p>
                             <MessageBalloon me={false}>
                                 <div>
-                                    안녕! 나는 프론트엔드 개발자 멘토야.
+                                    안녕하세요! 프론트엔드 개발자 디디에요!.
                                 </div>
                                 <p>{format(new Date(), "aa hh:mm", {locale:ko})}</p>
                             </MessageBalloon>
@@ -218,7 +218,7 @@ const Chat = () => {
                         {v.name!=="me" && <>
                         <CharacterContainer>
                             <Circle color1="#0019FA" color2="#001881">
-                                <Image src={characterOneImage} alt="요리사 이미지" width={23}/>
+                                <Image src={characterOneImage} alt="요리사 이미지" width={64}/>
                             </Circle>
                         </CharacterContainer>
                         </>}
