@@ -71,7 +71,7 @@ const Main = () => {
         imagesrc={characterOneImage} 
         alt="요리사 캐릭터"
         title="프론트엔드 개발자"
-        subtitle="안녕! 나는 ai 프론트엔드 멘토 요요야. 궁금한 게 있다면 언제든지 물어봐!"
+        subtitle="안녕! 나는 ai 프론트엔드 개발자 멘토 디디야. 궁금한 게 있다면 언제든지 물어봐!"
     
         />
         <CharBtn 
