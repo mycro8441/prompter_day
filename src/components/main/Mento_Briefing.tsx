@@ -100,26 +100,27 @@ const Mento_Briefing = () => {
             <Title>최근 7일</Title>
             <Block>
                 <div>
-                    <p>요리사가 되기 위해 진학해야 할 학과</p>
-                    <div>1. 요리학과 또는 음식과학과 2. 호텔 경영학과 3. 요리 및 베... </div>
-                    <h1>2023-08-28</h1>
+                    <p>웹 개발에서 자주 사용하는 프레임워크</p>
+                    <div>React, Angular, Vue.js, Express.js, Ruby on Rails, Django, Spring Boot</div>
+                    <h1>2023-09-03</h1>
+                </div>
+            </Block>
+            <Block>
+                <div>
+                    <p>하나의 프레임워크를 마스터하려면</p>
+                    <div>1. 기초학습, 2. 중급 수준, 3. 고급 수준</div>
+                    <h1>2023-09-03</h1>
+                </div>
+            </Block>
+            <Block>
+                <div>
+                    <p>next.js란?</p>
+                    <div>react 기반의 프레임워크로, 서버 사이드 렌더링 및 정적 사이트 생성을 강력하게 지원</div>
+                    <h1>2023-09-03</h1>
                 </div>
             </Block>
             <Title>최근 30일</Title>
-            <Block>
-                <div>
-                    <p>요리사가 되기 위해 진학해야 할 학과</p>
-                    <div>1. 요리학과 또는 음식과학과 2. 호텔 경영학과 3. 요리 및 베... </div>
-                    <h1>2023-08-28</h1>
-                </div>
-            </Block>
-            <Block>
-                <div>
-                    <p>요리사가 되기 위해 진학해야 할 학과</p>
-                    <div>1. 요리학과 또는 음식과학과 2. 호텔 경영학과 3. 요리 및 베... </div>
-                    <h1>2023-08-28</h1>
-                </div>
-            </Block>
+
         </Blocks>
     </Container>
 }
