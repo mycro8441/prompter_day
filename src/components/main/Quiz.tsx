@@ -1,3 +1,4 @@
+import { useState } from "react";
 import useStore from "src/store";
 import styled from "styled-components";
 import Home from "../Home";
@@ -73,7 +74,8 @@ const AnsButtonContainer = styled.div`
 
     }
 `
-const AnsButton = styled.div<{ans:boolean}>`
+type answerType = "answer"|"wrong"|"normal";
+const AnsButton = styled.div<{status:answerType}>`
     position:relative;
     width:100%;
     height:4em; 
@@ -81,17 +83,29 @@ const AnsButton = styled.div<{ans:boolean}>`
     z-index:5;
     border-radius: 1em;
     margin-top:12px;
-    background-image: ${p=>`linear-gradient(${p.ans ? p.theme.colors.blue+"99" : p.theme.colors.gray1}, ${p.ans ? p.theme.colors.blue+"99" : p.theme.colors.gray1}), linear-gradient(to bottom, ${p.ans ? "#929DFF" : "white"} 0%, ${p.ans ? p.theme.colors.blue+"99" : p.theme.colors.gray1} 100%)`};
+    background-image: ${p=>`linear-gradient(
+        ${p.status === "answer" ? "#D8EBB9" : p.status==="wrong" ? "#FBB6B4" : p.theme.colors.gray1}, 
+        ${p.status === "answer" ? "#D8EBB9" : p.status==="wrong" ? "#FBB6B4" : p.theme.colors.gray1}), 
+        linear-gradient(to bottom, 
+        ${p.status==="answer" ? "#E0F6CA" : p.status==="wrong" ? "#FFCDCD":"white"} 0%, 
+        ${p.status === "answer" ? "#D8EBB9" : p.status==="wrong" ? "#FBB6B4" : p.theme.colors.gray1} 100%)`};
     background-origin: border-box;
     background-clip: content-box, border-box;
     box-shadow:0px 2px 15px 1px #0019FA1A;
     display:flex;
-    justify-content:center;
+    justify-content:${p=>p.status==="normal" ? "start" : "space-between"};
     align-items:center;
-    color:${p=>p.ans && p.theme.colors.gray1};
+    color:${p=>p.status === "answer" ? "#00A958" : p.status === "wrong" ? "#DD1C1C" : "#202126"};
     font-size:${p=>p.theme.fontSizes.smallTitle};
     font-weight:${p=>p.theme.fontWeight.title};
     text-align:left;
+    p{
+        margin-left:1.5em;
+    }
+    svg {
+        margin-right:1em;
+    }
+    transition:0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
 `
 const BlurCircle1 = styled.div`
     position:absolute;
@@ -117,11 +131,34 @@ const BlurCircle2 = styled.div`
     background-image:linear-gradient(#0019FA40, #6EA2F040);
     pointer-events: none;
 `
+const LightCircle = styled.div<{current:boolean}>`
+    width:10px;
+    height:10px;
+        border:solid 3px transparent;
+    border-radius: 1em;
+    background-image: ${p=>`linear-gradient(#3B4EFA, #3B4EFA), linear-gradient(to bottom, #969AF3 0%, #3B4EFA 100%)`};
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+`
+
 const Quiz = () => {
 
 
     const {changeTab} = useStore();
-    
+    const data = ["호텔 예약 기능", "변수 및 함수 선언을 미리 처리", "데이터 암호화", "반복문 처리"]
+    const [status, setStatus] = useState<answerType[]>(["normal", "normal", "normal", "normal"])
+    const reveal = (index:number) => {
+        const copy = [...status];
+        const answer = "반복문 처리"
+        for(let i=0;i<4;i++) {
+            if(data[i] === answer) {
+                copy[i] = "answer"
+            } else if(data[index] !== answer) {
+                copy[index] = "wrong";
+            }
+        }
+        setStatus(copy);
+    }
     return <>
         <Container>
             <Header  onClick={()=>changeTab(<Home/>, "Home")}>
@@ -151,17 +188,27 @@ const Quiz = () => {
             <QuizContainer>
                 <QuizTitle>
                     <p>Q1</p>
-                    <div>화재 현장에서 물 대신
-                        어떤 화학 물질을 사용하여
-                        불을 진압할 수 있을까요?
+                    <div>JavaScript에서 "Hoisting"이란 무엇인가요?
                     </div>
                 </QuizTitle>
                 <AnsButtonContainer>
-                    <AnsButton ans={false}>{"a) 유리섬유"}</AnsButton>
-                    <AnsButton ans={true}>{"a) 유리섬유"}</AnsButton>
+                    {data.map((v, i)=><AnsButton status={status[i]} onClick={()=>reveal(i)}>
+                        <p>{String.fromCharCode(97+i) + ") " + v}</p>
+                        {status[i] === "answer" && <>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3.35288 8.95043C4.00437 6.17301 6.17301 4.00437 8.95043 3.35288C10.9563 2.88237 13.0437 2.88237 15.0496 3.35288C17.827 4.00437 19.9956 6.17301 20.6471 8.95044C21.1176 10.9563 21.1176 13.0437 20.6471 15.0496C19.9956 17.827 17.827 19.9956 15.0496 20.6471C13.0437 21.1176 10.9563 21.1176 8.95044 20.6471C6.17301 19.9956 4.00437 17.827 3.35288 15.0496C2.88237 13.0437 2.88237 10.9563 3.35288 8.95043Z" stroke="#00A958" stroke-width="1.5"/>
+                                <path d="M8 11.8L10.9091 15L16 9" stroke="#00A958" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </>}
+                        {status[i] === "wrong" && <>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3.35288 8.95043C4.00437 6.17301 6.17301 4.00437 8.95043 3.35288C10.9563 2.88237 13.0437 2.88237 15.0496 3.35288C17.827 4.00437 19.9956 6.17301 20.6471 8.95044C21.1176 10.9563 21.1176 13.0437 20.6471 15.0496C19.9956 17.827 17.827 19.9956 15.0496 20.6471C13.0437 21.1176 10.9563 21.1176 8.95044 20.6471C6.17301 19.9956 4.00437 17.827 3.35288 15.0496C2.88237 13.0437 2.88237 10.9563 3.35288 8.95043Z" stroke="#DD1C1C" stroke-width="1.5"/>
+                            <path d="M15 9L9 15M15 15L9 9" stroke="#DD1C1C" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
+                        </>}
+                    </AnsButton>)}
+                    
 
-                    <AnsButton ans={false}>{"a) 유리섬유"}</AnsButton>
-                    <AnsButton ans={false}>{"a) 유리섬유"}</AnsButton>
                     <div>
                         <p>다음 문제로 넘어가기</p>
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
