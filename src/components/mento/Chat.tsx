@@ -207,7 +207,7 @@ const Chat = () => {
                             <p>프론트엔드 개발자</p>
                             <MessageBalloon me={false}>
                                 <div>
-                                    안녕하세요! 프론트엔드 개발자 디디에요!.
+                                    안녕하세요! 프론트엔드 개발자 디디에요!
                                 </div>
                                 <p>{format(new Date(), "aa hh:mm", {locale:ko})}</p>
                             </MessageBalloon>
