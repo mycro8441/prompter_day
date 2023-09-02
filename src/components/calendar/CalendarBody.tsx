@@ -87,11 +87,15 @@ const DayBlock = styled.div<{state:'selected' | 'normal' | 'disabled'}>`
     font-weight:${p=>p.theme.fontWeight.smallText};
 `
 const CalendarContainer = styled.div`
+    position:relative;
     width:100%;
     height:auto;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
 `
 const CalendarBackground = styled.div`
-    position:relative;
     width:100%;
     height:100%;
     background-color: #F8F8FD99;
@@ -105,7 +109,7 @@ const CalendarBackground = styled.div`
 `
 const CalendarBlur = styled.div`
     position:absolute;
-    width:80%;
+    width:90%;
     left:50%;
     transform:translate(-50%, 10px);
     height:22em;
@@ -115,6 +119,13 @@ const CalendarBlur = styled.div`
     filter: blur(20px);
     pointer-events: none;
 `
+
+const Container = styled.div`
+    width:100%;
+    height:auto;
+    position:relative;
+`
+
 const RenderHeader = ({currentMonth, prevMonth, nextMonth}) => {
 
 
@@ -216,23 +227,28 @@ const CalendarBody = ({selectedDate, setSelectedDate}) => {
 
 
     return <>
-        <RenderHeader
-            currentMonth={currentMonth}
-            prevMonth={prevMonth}
-            nextMonth={nextMonth}
-        />
-        <CalendarContainer>
-            <CalendarBlur/>
-            <CalendarBackground>
-                <RenderDays selectedDate={selectedDate}/>
-                <RenderCells
-                    currentMonth={currentMonth}
-                    selectedDate={selectedDate}
-                    onDateClick={onDateClick}
-                />                              
-            </CalendarBackground>
-    
-        </CalendarContainer> 
+            <RenderHeader
+                currentMonth={currentMonth}
+                prevMonth={prevMonth}
+                nextMonth={nextMonth}
+
+            />
+            <Container>
+                <CalendarBlur/>
+                <CalendarContainer>
+                    <CalendarBackground>
+                        <RenderDays selectedDate={selectedDate}/>
+                        <RenderCells
+                            currentMonth={currentMonth}
+                            selectedDate={selectedDate}
+                            onDateClick={onDateClick}
+                        />                              
+                    </CalendarBackground>
+            
+                </CalendarContainer>                     
+            </Container>
+        
+
     </>
 }
 
