@@ -277,7 +277,7 @@ const CalendarBody = ({ selectedDate, setSelectedDate }) => {
       }
       setSelectedDate(day)
     } else {
-      setSlided(true)
+      //setSlided(true)
     }
   }
 

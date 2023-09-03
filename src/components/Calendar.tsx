@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import styled from 'styled-components'
 import CalendarBody from './calendar/CalendarBody'
+import Timeline from './calendar/Timeline'
 
 const Container = styled.div`
   width: 100%;
@@ -26,6 +27,8 @@ const Calendar = () => {
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
         />
+        <Title>오늘 일정</Title>
+        <Timeline />
       </Container>
     </>
   )

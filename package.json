@@ -21,13 +21,16 @@
     "eslint-config-next": "13.4.19",
     "next": "13.4.19",
     "react": "18.2.0",
+    "react-datepicker": "^4.16.0",
     "react-dom": "18.2.0",
     "react-helmet": "^6.1.0",
+    "react-use-websocket": "^4.3.1",
     "styled-components": "^6.0.7",
     "typescript": "5.1.6",
     "zustand": "^4.4.1"
   },
   "devDependencies": {
-    "@types/date-fns": "^2.6.0"
+    "@types/date-fns": "^2.6.0",
+    "@types/react-datepicker": "^4.15.0"
   }
 }
