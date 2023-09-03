@@ -289,7 +289,7 @@ const CalendarBody = ({ selectedDate, setSelectedDate }) => {
         setData(res.data)
       }
     })
-  }, [])
+  }, [selectedDate])
 
   return (
     <>
