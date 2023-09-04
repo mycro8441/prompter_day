@@ -134,7 +134,7 @@ const Input = ({ data, setData }) => {
       if (res.success) {
         if (localStorage.getItem('uid') === null)
           localStorage.setItem('uid', res.data.uid)
-        setData(res.data.chats)
+        setData([...data, res.data.chats[0], res.data.chats[1]])
       }
     })
     setInput('')
