@@ -281,16 +281,6 @@ const CalendarBody = ({ selectedDate, setSelectedDate }) => {
     }
   }
 
-  const [data, setData] = useState(null)
-  useEffect(() => {
-    getCalendar(format(selectedDate, 'yyyy-MM')).then((res) => {
-      if (res.success) {
-        console.log(res.data)
-        setData(res.data)
-      }
-    })
-  }, [selectedDate])
-
   return (
     <>
       <Adjust>

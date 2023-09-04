@@ -16,8 +16,8 @@ export const getAIHistory = async () => {
   const { data } = await client.get('/AI/history')
   return data
 }
-export const getCalendar = async (date: string) => {
-  const { data } = await client.get('/calender/' + date)
+export const getCalendar = async () => {
+  const { data } = await client.get('/calender/list')
   return data
 }
 export const getPlan = async () => {
@@ -25,8 +25,11 @@ export const getPlan = async () => {
   return data
 }
 
-export const makePlan = async () => {
-  const { data } = await client.post('/plan/generate')
+export const makePlan = async (message: string, color: string) => {
+  const { data } = await client.post('/calender/generate', {
+    message: message,
+    color: color
+  })
   return data
 }
 export const makeTarget = async () => {
@@ -46,9 +49,14 @@ export const getJobByCode = async (code: string) => {
   const { data } = await client.get('/job/' + code)
   return data
 }
-export const sendChat = async (uid: string, message: string) => {
+export const sendChat = async (
+  uid: string,
+  message: string,
+  jobName: string
+) => {
   const { data } = await client.post(
-    '/AI/chat' + (uid === null ? '' : `?uid=${uid}`),
+    '/AI/chat' +
+      (uid === null ? `?job=${jobName}` : `?uid=${uid}&job=${jobName}`),
     {
       message: message
     }

@@ -390,27 +390,11 @@ const MyPage_Main = () => {
         <JobTray>
           <div>
             <CharacterContainer>
-              <Circle color1="#FF6C6C" color2="#BB0000">
-                <Image src={characterThreeImage} alt="" width={47} />
-              </Circle>
-            </CharacterContainer>
-            <p>소방관</p>
-          </div>
-          <div>
-            <CharacterContainer>
               <Circle color1="#0019FA" color2="#001881">
                 <Image src={characterOneImage} alt="" width={80} />
               </Circle>
             </CharacterContainer>
             <p>프론트엔드 개발자</p>
-          </div>
-          <div>
-            <CharacterContainer>
-              <Circle color1="#FA9600" color2="#F27400">
-                <Image src={characterTwoImage} alt="" width={47} />
-              </Circle>
-            </CharacterContainer>
-            <p>의사</p>
           </div>
         </JobTray>
       </Header>

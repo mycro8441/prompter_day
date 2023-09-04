@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import DatePicker from 'react-datepicker'
 import { ko } from 'date-fns/locale'
 import 'react-datepicker/dist/react-datepicker.css'
+import { makePlan } from 'src/lib/routes'
+import { format } from 'date-fns'
 const Container = styled.div`
   position: relative;
   width: 100%;
@@ -159,9 +161,8 @@ const SearchResultContainer = styled.div`
     font-weight: ${(p) => p.theme.fontWeight.smallTitle};
   }
 `
-const PrettyInput = ({ children }) => {
+const PrettyInput = ({ children, target, setTarget }) => {
   const [on, setOn] = useState(false)
-  const [target, setTarget] = useState('직종을 선택해주세요.')
 
   const selectOption = (name: string) => {
     setTarget(name)
@@ -193,19 +194,21 @@ const PrettyInput = ({ children }) => {
       {on && (
         <>
           <SearchResultContainer>
-            <p onClick={() => selectOption('물리학자')}>물리학자</p>
-            <p onClick={() => selectOption('화학자')}>화학자</p>
-            <p onClick={() => selectOption('생물학자')}>생물학자</p>
+            <p onClick={() => selectOption('프론트엔드 개발자')}>
+              프론트엔드 개발자
+            </p>
           </SearchResultContainer>
         </>
       )}
     </BtnContainer>
   )
 }
-const Create_Form = ({ setIsCreated }) => {
+const Create_Form = ({ setIsCreate }) => {
   const [resolution, setResolution] = useState('')
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
+  const [currentColor, setCurrentColor] = useState(null)
+  const [target, setTarget] = useState('직종을 선택해주세요.')
   const filterPassedTimeE = (time) => {
     const currentDate = new Date()
     const selectedDate = new Date(time)
@@ -218,11 +221,25 @@ const Create_Form = ({ setIsCreated }) => {
 
     return currentDate.getTime() > selectedDate.getTime()
   }
+
+  const onCreate = () => {
+    makePlan(
+      `${target}에서 ${resolution}을 이루기 위한 ${format(
+        startDate,
+        'yyyy-MM-dd'
+      )}부터 ${format(endDate, 'yyyy-MM-dd')}까지의 계획을 세워줘`,
+      currentColor
+    ).then((res) => {
+      if (res.success) {
+        setIsCreate(false)
+      }
+    })
+  }
   return (
     <Container>
       <p>새 목표 설정하기</p>
 
-      <PrettyInput>
+      <PrettyInput target={target} setTarget={setTarget}>
         <svg
           width="24"
           height="24"
@@ -358,6 +375,7 @@ const Create_Form = ({ setIsCreated }) => {
             </svg>
 
             <h2>색상을 선택해주세요.</h2>
+            <ColorCircle color={currentColor} />
           </div>
           <svg
             width="8"
@@ -376,16 +394,37 @@ const Create_Form = ({ setIsCreated }) => {
           </svg>
         </div>
         <div>
-          <ColorCircle color="#FF8616" />
-          <ColorCircle color="#AFCFFF" />
-          <ColorCircle color="#FC9C9C" />
-          <ColorCircle color="#FFE588" />
-          <ColorCircle color="#C4EA9E" />
-          <ColorCircle color="#C99FFF" />
-          <ColorCircle color="#CECECE" />
+          <ColorCircle
+            onClick={() => setCurrentColor('#FF8616')}
+            color="#FF8616"
+          />
+          <ColorCircle
+            onClick={() => setCurrentColor('#AFCFFF')}
+            color="#AFCFFF"
+          />
+          <ColorCircle
+            onClick={() => setCurrentColor('#FC9C9C')}
+            color="#FC9C9C"
+          />
+          <ColorCircle
+            onClick={() => setCurrentColor('#FFE588')}
+            color="#FFE588"
+          />
+          <ColorCircle
+            onClick={() => setCurrentColor('#C4EA9E')}
+            color="#C4EA9E"
+          />
+          <ColorCircle
+            onClick={() => setCurrentColor('#C99FFF')}
+            color="#C99FFF"
+          />
+          <ColorCircle
+            onClick={() => setCurrentColor('#CECECE')}
+            color="#CECECE"
+          />
         </div>
       </ColorBtn>
-      <SubmitBtn onClick={() => setIsCreated(true)}>
+      <SubmitBtn onClick={() => onCreate()}>
         <p>생성하기</p>
       </SubmitBtn>
     </Container>

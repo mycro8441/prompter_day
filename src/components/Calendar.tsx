@@ -1,7 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import CalendarBody from './calendar/CalendarBody'
 import Timeline from './calendar/Timeline'
+import { getCalendar } from 'src/lib/routes'
+import { format } from 'date-fns'
 
 const Container = styled.div`
   width: 100%;
@@ -19,6 +21,14 @@ const Title = styled.div`
 
 const Calendar = () => {
   const [selectedDate, setSelectedDate] = useState(new Date())
+  const [data, setData] = useState(null)
+  useEffect(() => {
+    getCalendar().then((res) => {
+      if (res.success) {
+        console.log(res.data)
+      }
+    })
+  }, [])
   return (
     <>
       <Container>

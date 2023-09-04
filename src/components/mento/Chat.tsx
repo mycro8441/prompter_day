@@ -123,18 +123,28 @@ const Circle = styled.div<{ color1: string; color2: string }>`
   overflow: hidden;
 `
 
-const Input = ({ data, setData }) => {
+const Input = ({ data, setData, jobName }) => {
   const [input, setInput] = useState('')
-
   const onSubmit = (e) => {
     e.preventDefault()
     if (!input) return
     setData([...data, { role: 'user', content: input }])
-    sendChat(localStorage.getItem('uid'), input).then((res) => {
+    sendChat(localStorage.getItem('uid'), input, jobName).then((res) => {
       if (res.success) {
         if (localStorage.getItem('uid') === null)
           localStorage.setItem('uid', res.data.uid)
-        setData([...data, res.data.chats[0], res.data.chats[1]])
+
+        setData([
+          ...data,
+          res.data.chats[0],
+          {
+            ...res.data.chats[1],
+            content: res.data.chats[1].content.replace(
+              'Failed to reply.',
+              '잘 모르겠습니다.'
+            )
+          }
+        ])
       }
     })
     setInput('')
@@ -196,12 +206,6 @@ const Chat = () => {
   const [data, setData] = useState([])
   const bottomRef = useRef(null)
   const { chatInfo, setChatInfo } = useStore()
-  const dummydata = [
-    '웹 개발에서 자주 사용하는 프레임워크들이에요. React, Angular, Vue.js, Express.js, Ruby on Rails, Django, Spring Boot 등이 그중에 있어요. 이 중에서 선택할 때에는 프로젝트의 목적과 개발자의 경험에 따라 다르겠죠! 😊',
-    '하나의 프레임워크를 마스터하려면 시간은 개인의 배우는 속도와 경험에 따라 다를 수 있습니다. 일반적으로 다음 가이드라인을 고려할 수 있어요: 기초 학습 (Basic Proficiency): 기본 개념을 익히고 간단한 프로젝트를 수행하려면 일주일에서 한 달 정도가 걸릴 수 있어요. 중급 수준 (Intermediate Proficiency): 고급 기능과 개발 패턴을 이해하며 중간 규모의 프로젝트를 수행하려면 3개월에서 6개월이 필요할 수 있어요. 고급 수준 (Advanced Proficiency): 프레임워크를 깊게 이해하고 복잡한 프로젝트를 수행하려면 1년 이상의 시간이 소요될 수 있어요. 프레임워크를 마스터하는 과정은 지속적인 학습과 경험에 의해 발전하며, 실무에서의 활용도도 중요합니다. 따라서 학습과 개발 경험을 조합하면 프레임워크를 효과적으로 마스터하는 데 도움이 될 거에요. 😊',
-    '물론! Next.js는 React 기반의 프레임워크로, 서버 사이드 렌더링(SSR) 및 정적 사이트 생성(SSG)을 강력하게 지원합니다. SEO 최적화와 성능 향상에 도움을 주며, 라우팅과 데이터 프리페칭을 쉽게 관리할 수 있어요. 주로 리액트 앱을 빌드할 때 사용되며, 개발자에게 빠르고 확장 가능한 웹 앱을 구축하는데 도움이 됩니다.',
-    '열정과 끈기를 가지고 계속해서 배우며 성장하면 어떤 어려움도 이길 수 있어요! 💪'
-  ]
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
@@ -216,7 +220,8 @@ const Chat = () => {
               on: false,
               info: {
                 id: null,
-                name: ''
+                name: '',
+                imagesrc: ''
               }
             })
           }}
@@ -256,13 +261,17 @@ const Chat = () => {
           <MessageContainer me={false}>
             <CharacterContainer>
               <Circle color1="#0019FA" color2="#001881">
-                <Image src={characterOneImage} alt="개발자 이미지" width={64} />
+                <Image
+                  src={chatInfo.info.imagesrc}
+                  alt="개발자 이미지"
+                  width={64}
+                />
               </Circle>
             </CharacterContainer>
             <div>
-              <p>프론트엔드 개발자</p>
+              <p>{chatInfo.info.name}</p>
               <MessageBalloon me={false}>
-                <div>안녕하세요! 프론트엔드 개발자 디디에요!</div>
+                <div>안녕하세요! {chatInfo.info.name}에요!</div>
                 <p>{format(new Date(), 'aa hh:mm', { locale: ko })}</p>
               </MessageBalloon>
             </div>
@@ -274,7 +283,7 @@ const Chat = () => {
                   <CharacterContainer>
                     <Circle color1="#0019FA" color2="#001881">
                       <Image
-                        src={characterOneImage}
+                        src={chatInfo.info.imagesrc}
                         alt="요리사 이미지"
                         width={64}
                       />
@@ -283,6 +292,7 @@ const Chat = () => {
                 </>
               )}
               <div>
+                {v.role !== 'user' && <p>{chatInfo.info.name}</p>}
                 <MessageBalloon me={v.role === 'user'}>
                   <div>{v.content}</div>
                   <p>{format(new Date(), 'aa hh:mm', { locale: ko })}</p>
@@ -292,7 +302,7 @@ const Chat = () => {
           ))}
           <div ref={bottomRef} />
         </ChatContainer>
-        <Input setData={setData} data={data} />
+        <Input setData={setData} data={data} jobName={chatInfo.info.name} />
       </ChatBase>
     </>
   )

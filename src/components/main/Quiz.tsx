@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import useStore from 'src/store'
 import styled from 'styled-components'
 import Home from '../Home'
@@ -176,7 +176,9 @@ const LightCircle = styled.div<{ current: boolean }>`
 
 const Quiz = () => {
   const { changeTab } = useStore()
-  const [data, setData] = useState([])
+  const [data, setData] = useState(null)
+  const [index, setIndex] = useState(0)
+  const revealed = useRef(false)
   useEffect(() => {
     getQuiz().then((res) => {
       if (res.success) {
@@ -192,14 +194,15 @@ const Quiz = () => {
     'normal',
     'normal'
   ])
-  const reveal = (index: number) => {
+  const reveal = (target: number, answer: string) => {
+    if (revealed.current) return
+    revealed.current = true
     const copy = [...status]
-    const answer = '반복문 처리'
     for (let i = 0; i < 4; i++) {
-      if (data[i] === answer) {
+      if (data[index].options[i].value === answer) {
         copy[i] = 'answer'
-      } else if (data[index] !== answer) {
-        copy[index] = 'wrong'
+      } else if (data[index].options[target].value !== answer) {
+        copy[target] = 'wrong'
       }
     }
     setStatus(copy)
@@ -236,13 +239,17 @@ const Quiz = () => {
         </HeaderLight>
         <QuizContainer>
           <QuizTitle>
-            <p>Q1</p>
-            <div>{'JavaScript에서 "Hoisting"이란 무엇인가요?'}</div>
+            <p>Q{index + 1}</p>
+            <div>{data?.[index].content}</div>
           </QuizTitle>
           <AnsButtonContainer>
-            {data.map((v, i) => (
-              <AnsButton key={i} status={status[i]} onClick={() => reveal(i)}>
-                <p>{String.fromCharCode(97 + i) + ') ' + v}</p>
+            {data?.[index].options.map((v, i: number) => (
+              <AnsButton
+                key={i}
+                status={status[i]}
+                onClick={() => reveal(i, data[index].answer)}
+              >
+                <p>{String.fromCharCode(97 + i) + ') ' + v.content}</p>
                 {status[i] === 'answer' && (
                   <>
                     <svg
@@ -293,7 +300,12 @@ const Quiz = () => {
               </AnsButton>
             ))}
 
-            <div>
+            <div
+              onClick={() => {
+                revealed.current = false
+                setIndex((prev) => prev + 1)
+              }}
+            >
               <p>다음 문제로 넘어가기</p>
               <svg
                 width="20"
