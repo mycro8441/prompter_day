@@ -6,6 +6,7 @@ import characterOneImage from '../../images/main/character1.png'
 import { format } from 'date-fns'
 import useWebSocket, { ReadyState } from 'react-use-websocket'
 import { ko } from 'date-fns/locale'
+import { sendChat } from 'src/lib/routes'
 const Header = styled.div`
   width: 100%;
   display: flex;
@@ -128,7 +129,14 @@ const Input = ({ data, setData }) => {
   const onSubmit = (e) => {
     e.preventDefault()
     if (!input) return
-    setData([...data, { name: 'me', content: input }])
+    setData([...data, { role: 'user', content: input }])
+    sendChat(localStorage.getItem('uid'), input).then((res) => {
+      if (res.success) {
+        if (localStorage.getItem('uid') === null)
+          localStorage.setItem('uid', res.data.uid)
+        setData(res.data.chats)
+      }
+    })
     setInput('')
   }
   return (
@@ -188,26 +196,13 @@ const Chat = () => {
   const [data, setData] = useState([])
   const bottomRef = useRef(null)
   const { chatInfo, setChatInfo } = useStore()
-  const [connected, setConnected] = useState(false)
   const dummydata = [
     '웹 개발에서 자주 사용하는 프레임워크들이에요. React, Angular, Vue.js, Express.js, Ruby on Rails, Django, Spring Boot 등이 그중에 있어요. 이 중에서 선택할 때에는 프로젝트의 목적과 개발자의 경험에 따라 다르겠죠! 😊',
     '하나의 프레임워크를 마스터하려면 시간은 개인의 배우는 속도와 경험에 따라 다를 수 있습니다. 일반적으로 다음 가이드라인을 고려할 수 있어요: 기초 학습 (Basic Proficiency): 기본 개념을 익히고 간단한 프로젝트를 수행하려면 일주일에서 한 달 정도가 걸릴 수 있어요. 중급 수준 (Intermediate Proficiency): 고급 기능과 개발 패턴을 이해하며 중간 규모의 프로젝트를 수행하려면 3개월에서 6개월이 필요할 수 있어요. 고급 수준 (Advanced Proficiency): 프레임워크를 깊게 이해하고 복잡한 프로젝트를 수행하려면 1년 이상의 시간이 소요될 수 있어요. 프레임워크를 마스터하는 과정은 지속적인 학습과 경험에 의해 발전하며, 실무에서의 활용도도 중요합니다. 따라서 학습과 개발 경험을 조합하면 프레임워크를 효과적으로 마스터하는 데 도움이 될 거에요. 😊',
     '물론! Next.js는 React 기반의 프레임워크로, 서버 사이드 렌더링(SSR) 및 정적 사이트 생성(SSG)을 강력하게 지원합니다. SEO 최적화와 성능 향상에 도움을 주며, 라우팅과 데이터 프리페칭을 쉽게 관리할 수 있어요. 주로 리액트 앱을 빌드할 때 사용되며, 개발자에게 빠르고 확장 가능한 웹 앱을 구축하는데 도움이 됩니다.',
     '열정과 끈기를 가지고 계속해서 배우며 성장하면 어떤 어려움도 이길 수 있어요! 💪'
   ]
-  const { lastMessage } = useWebSocket('wss://api.prompter.lunas.kr/AI/chat/', {
-    onOpen: () => setConnected(true),
-    //Will attempt to reconnect on all close events, such as server shutting down
-    shouldReconnect: (closeEvent) => true
-  })
-  useEffect((): any => {
-    // connect to socket server
 
-    if (lastMessage !== null) {
-      if (JSON.parse(lastMessage.data).role === 'AI')
-        setData((prev) => prev.concat([JSON.parse(lastMessage.data)]))
-    }
-  }, [lastMessage, setData])
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
   }, [data])
@@ -273,8 +268,8 @@ const Chat = () => {
             </div>
           </MessageContainer>
           {data.map((v, i) => (
-            <MessageContainer key={i} me={v.name === 'me'}>
-              {v.name !== 'me' && (
+            <MessageContainer key={i} me={v.role === 'user'}>
+              {v.role !== 'user' && (
                 <>
                   <CharacterContainer>
                     <Circle color1="#0019FA" color2="#001881">
@@ -288,7 +283,7 @@ const Chat = () => {
                 </>
               )}
               <div>
-                <MessageBalloon me={v.name === 'me'}>
+                <MessageBalloon me={v.role === 'user'}>
                   <div>{v.content}</div>
                   <p>{format(new Date(), 'aa hh:mm', { locale: ko })}</p>
                 </MessageBalloon>

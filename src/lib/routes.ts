@@ -46,3 +46,8 @@ export const getJobByCode = async (code: string) => {
   const { data } = await client.get('/job/' + code)
   return data
 }
+export const sendChat = async (uid: string, message: string) => {
+  const { data } = await client.post('/AI/chat/' + uid, { message: message })
+
+  return data
+}

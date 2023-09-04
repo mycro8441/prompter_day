@@ -122,9 +122,9 @@ const News = () => {
               <Block key={i}>
                 <Title>
                   {v.title
-                    .replace('<b>', '')
-                    .replace('</b>', '')
-                    .replace('&quot;', '')}
+                    .replaceAll('<b>', '')
+                    .replaceAll('</b>', '')
+                    .replaceAll('&quot;', '')}
                 </Title>
                 <Subtitle>{v.url}</Subtitle>
                 <ImageContainer>
