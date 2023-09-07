@@ -254,7 +254,7 @@ const Quiz = () => {
                     status={status[i]}
                     onClick={() => reveal(i, data[index].answer)}
                   >
-                    <p>{String.fromCharCode(97 + i) + ') ' + v.content}</p>
+                    <p>{v.content}</p>
                     {status[i] === 'answer' && (
                       <>
                         <svg
