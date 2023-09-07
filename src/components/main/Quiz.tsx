@@ -304,6 +304,7 @@ const Quiz = () => {
               onClick={() => {
                 revealed.current = false
                 setIndex((prev) => prev + 1)
+                setStatus(['normal', 'normal', 'normal', 'normal'])
               }}
             >
               <p>다음 문제로 넘어가기</p>
